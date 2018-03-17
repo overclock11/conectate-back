@@ -10,39 +10,21 @@ from django.http import Http404
 
 # Create your views here.
 
-class ToolListAll(APIView):
+
+class ToolList(generics.ListCreateAPIView):
+    queryset = Tool.objects.all()
+    serializer_class = ToolSerializer
+
+
+class SuperHeroesListAll(APIView):
+    @staticmethod
     def get_object(self):
         try:
             return Tool.objects.all()
         except Tool.DoesNotExist:
             raise Http404
 
+    @staticmethod
     def get(self):
-        tools = Tool.objects.all()
-        return Response(serializer.data)
-
-
-# class SuperHeroesList(APIView):
-#     def get_object(self, superheroe_name):
-#         try:
-#             return SuperHeroes.objects.get(name=superheroe_name)
-#         except SuperHeroes.DoesNotExist:
-#             raise Http404
-#
-#     def get(self, request, superheroe_name, format=None):
-#         heroe = self.get_object(superheroe_name)
-#         serializer = SuperHeroesSerializer(heroe)
-#         return Response(serializer.data)
-#
-#     def put(self, request, superheroe_name, format=None):
-#         heroe = self.get_object(superheroe_name)
-#         serializer = SuperHeroesSerializer(heroe, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-#     def delete(self, request, superheroe_name, format=None):
-#         heroe = self.get_object(superheroe_name)
-#         heroe.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+        heroes = Tool.objects.all()
+        return Response(heroes)

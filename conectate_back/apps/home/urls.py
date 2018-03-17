@@ -3,8 +3,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from apps.home.views import *
 
 urlpatterns =[
-    path('superheroes/',SuperHeroesListAll.as_view()),
-    path('superheroes/<superheroe_name>',SuperHeroesList.as_view()),
+    path('tools/',ToolList.as_view()),
+    path('tool/',SuperHeroesListAll.as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
