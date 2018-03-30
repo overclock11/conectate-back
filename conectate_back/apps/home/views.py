@@ -28,3 +28,8 @@ class SuperHeroesListAll(APIView):
     def get(self):
         heroes = Tool.objects.all()
         return Response(heroes)
+
+
+class TotorialList(generics.ListCreateAPIView):
+    queryset = Tutorial.objects.all()
+    serializer_class = TutorialSerializer

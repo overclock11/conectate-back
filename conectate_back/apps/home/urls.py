@@ -5,6 +5,7 @@ from apps.home.views import *
 urlpatterns =[
     path('tools/',ToolList.as_view()),
     path('tool/',SuperHeroesListAll.as_view()),
+    path('tutorials', TotorialList.as_view()),
 
 ]
 
