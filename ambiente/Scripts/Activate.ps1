@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\USUARIO\Documents\conectate\conectate\conectate-back\ambiente"
+$env:VIRTUAL_ENV="C:\Users\Julian\Documents\python\proyecto\conectate-back\ambiente"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

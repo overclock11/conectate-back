@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\USUARIO\Documents\conectate\conectate\conectate-back\ambiente"
+set "VIRTUAL_ENV=C:\Users\Julian\Documents\python\proyecto\conectate-back\ambiente"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"

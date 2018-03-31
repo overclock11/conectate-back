@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\USUARIO\Documents\conectate\conectate\conectate-back\ambiente"
+VIRTUAL_ENV="C:\Users\Julian\Documents\python\proyecto\conectate-back\ambiente"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
