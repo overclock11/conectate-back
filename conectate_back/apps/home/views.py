@@ -30,6 +30,12 @@ class SuperHeroesListAll(APIView):
         return Response(heroes)
 
 
-class TotorialList(generics.ListCreateAPIView):
+class TutorialList(generics.ListCreateAPIView):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
+
+    def get_queryset(self):
+        st = super().get_queryset();
+        toolId = self.request.GET['toolId']
+        st = st.filter(tool_id = toolId)
+        return st

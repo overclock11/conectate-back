@@ -5,8 +5,7 @@ from apps.home.views import *
 urlpatterns =[
     path('tools/',ToolList.as_view()),
     path('tool/',SuperHeroesListAll.as_view()),
-    path('tutorials', TotorialList.as_view()),
-
+    path('tutorial', TutorialList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
