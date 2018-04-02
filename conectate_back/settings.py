@@ -25,7 +25,7 @@ SECRET_KEY = '@*=p0w5m@0=05!cg=$m65oa=+8_fpfji4@yp8c7c&fqii#iyj6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["conectate-sp1.herokuapp.com"]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
