@@ -109,3 +109,4 @@ include/
 pip-selfcheck.json
 
 ambiente/
+.idea/
