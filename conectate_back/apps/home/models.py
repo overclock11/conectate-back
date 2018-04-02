@@ -12,3 +12,9 @@ class Tool(models.Model):
     officialDocs = models.CharField(max_length=100)
     associatedTutorials = models.TextField() #debe incluir el enlace al ejemplo
 
+
+class Tutorial(models.Model):
+    name = models.CharField(max_length=100)
+    url = models.CharField(max_length=200)
+    commentary =  models.TextField(max_length=400)
+    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE)
