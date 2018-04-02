@@ -21,8 +21,7 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(r'^$', serve, kwargs={'path': 'index.html'}),
-    url(r'^(?!/?static/)(?P<path>.*\..*)$',
-    RedirectView.as_view(url='/static/%(path)s', permanent=False)),
+   
     path('admin/', admin.site.urls),
     path('',include("apps.home.urls")),
 ]
