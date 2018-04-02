@@ -46,4 +46,4 @@ class TutorialList(generics.ListCreateAPIView):
         tool = Tool.objects.get(id=data['tool'])
         data['tool'] = tool
         Tutorial.objects.create(**data)
-        return Response(status=status.HTTP_200_OK)s
+        return Response(status=status.HTTP_200_OK)
