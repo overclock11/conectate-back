@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+from django.contrib.staticfiles.views import serve
+from django.conf.urls import url
 
 urlpatterns = [
+    url(r'^$', serve, kwargs={'path': 'index.html'}),
+    url(r'^(?!/?static/)(?P<path>.*\..*)$',
+    RedirectView.as_view(url='/static/%(path)s', permanent=True)),
     path('admin/', admin.site.urls),
     path('',include("apps.home.urls")),
 ]

@@ -26,10 +26,8 @@ SECRET_KEY = '@*=p0w5m@0=05!cg=$m65oa=+8_fpfji4@yp8c7c&fqii#iyj6'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-CORS_ORIGIN_WHITELIST = (
-    'localhost:4200',
-    '127.0.0.1:4200'
-)
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -123,4 +121,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+ANGULAR_APP_DIR = os.path.join(BASE_DIR, 'frontend/dist')
+
+STATICFILES_DIRS = [
+        os.path.join(ANGULAR_APP_DIR),
+    ]
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
