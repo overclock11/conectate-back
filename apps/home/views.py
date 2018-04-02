@@ -7,12 +7,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from rest_framework import viewsets
 
 
 # Create your views here.
-
-
-class ToolList(generics.ListCreateAPIView):
+class ToolList(viewsets.ModelViewSet):
     queryset = Tool.objects.all()
     serializer_class = ToolSerializer
 
@@ -36,7 +35,7 @@ class TutorialList(generics.ListCreateAPIView):
     serializer_class = TutorialSerializer
 
     def get_queryset(self):
-        st = super().get_queryset();
+        st = super().get_queryset()
         toolId = self.request.GET['toolId']
         st = st.filter(tool_id = toolId)
         return st
