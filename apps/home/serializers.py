@@ -4,7 +4,7 @@ from apps.home.models import Tool, Tutorial
 class ToolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tool
-        fields = ('id','name','keyWords','technicalDetails','description')
+        fields = '__all__'
 
 class TutorialSerializer(serializers.ModelSerializer):
     class Meta:

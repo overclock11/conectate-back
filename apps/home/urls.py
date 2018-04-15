@@ -5,9 +5,9 @@ from apps.home.views import *
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'tools', ToolList)
+router.register(r'tool', ToolList)
 
-urlpatterns =[
+urlpatterns = [
     path('', include(router.urls)),
     path('tutorial', TutorialList.as_view()),
 ]
