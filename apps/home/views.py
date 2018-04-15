@@ -16,6 +16,11 @@ class ToolList(viewsets.ModelViewSet):
     serializer_class = ToolSerializer
 
 
+class ExampleList(viewsets.ModelViewSet):
+    queryset = Example.objects.all()
+    serializer_class = ExampleSerializer
+
+
 class SuperHeroesListAll(APIView):
     @staticmethod
     def get_object(self):
