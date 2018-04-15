@@ -15,6 +15,30 @@ class Tool(models.Model):
 
 class Tutorial(models.Model):
     name = models.CharField(max_length=100)
-    url = models.CharField(max_length=200)
-    commentary =  models.TextField(max_length=400)
+    objective = models.TextField(null=True)
+    url =  models.URLField(max_length=400)
     tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE)
+
+
+class Strategy(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class Discipline(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+
+class Example(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    instructions = models.TextField()
+    state = models.CharField(max_length=100)
+    strategy = models.ForeignKey(Strategy, null=False, on_delete=models.CASCADE, related_name='examples')
+    discipline = models.ForeignKey(Discipline, null=False, on_delete=models.CASCADE, related_name='examples')
+
+
+class Resource(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.URLField()
+    example = models.ForeignKey(Example, null=False, on_delete=models.CASCADE, related_name='resources')
