@@ -12,6 +12,13 @@ class ToolList(viewsets.ModelViewSet):
     queryset = Tool.objects.all()
     serializer_class = ToolSerializer
 
+
+class ExampleList(viewsets.ModelViewSet):
+    queryset = Example.objects.all()
+    serializer_class = ExampleSerializer
+
+
+
 class TutorialList(generics.ListCreateAPIView):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
