@@ -4,14 +4,14 @@ from django.db import models
 class Tool(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
-    urlSite = models.CharField(max_length=120, default='', null=True)
-    urlDownload = models.CharField(max_length=300, default='')
-    usageRestrictions = models.CharField(max_length=1000, default='')
-    licenseType = models.CharField(max_length=100, default='Abierta')
+    url_site = models.CharField(max_length=120, default='', null=True)
+    url_download = models.CharField(max_length=300, default='')
+    usage_restrictions = models.CharField(max_length=1000, default='')
+    license_type = models.CharField(max_length=100, default='Abierta')
     version = models.CharField(max_length=100, default='1.0')
-    keyWords = models.CharField(max_length=100, default='')
+    key_words = models.CharField(max_length=100, default='')
     state = models.CharField(max_length=100, default='')
-    integrationLms = models.CharField(max_length=100, default='', null=True)
+    integration_lms = models.CharField(max_length=100, default='', null=True)
 
 
 class PedagogicStrategy(models.Model):
