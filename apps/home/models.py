@@ -22,7 +22,7 @@ class Tutorial(models.Model):
     name = models.CharField(max_length=100)
     objective = models.TextField(null=True)
     url =  models.URLField(max_length=400)
-    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE)
+    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE, related_name='tutorials')
 
 
 class Discipline(models.Model):
@@ -37,6 +37,8 @@ class Example(models.Model):
     state = models.CharField(max_length=100)
     pedagogic_strategy = models.ForeignKey(PedagogicStrategy, null=False, on_delete=models.CASCADE, related_name='examples')
     discipline = models.ForeignKey(Discipline, null=False, on_delete=models.CASCADE, related_name='examples')
+    tool = models.ForeignKey(Tool, null=False, on_delete=models.CASCADE, related_name='examples')
+
 
 class Resource(models.Model):
     name = models.CharField(max_length=100)

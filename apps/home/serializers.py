@@ -1,17 +1,10 @@
 from rest_framework import serializers
 from apps.home.models import *
 
-class ToolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tool
-        fields = '__all__'
-
-
 class TutorialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutorial
         fields = '__all__'
-
 
 class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,3 +23,12 @@ class ExampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Example
         fields = '__all__'
+
+
+class ToolSerializer(serializers.ModelSerializer):
+    tutorials = TutorialSerializer(many=True)
+    examples = ExampleSerializer(many=True)
+    class Meta:
+        model = Tool
+        fields = '__all__'
+
