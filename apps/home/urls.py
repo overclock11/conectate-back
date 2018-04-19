@@ -5,9 +5,10 @@ from apps.home.views import *
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'tools', ToolList)
+router.register(r'tool', ToolList)
+router.register(r'example', ExampleList)
 
-urlpatterns =[
-    path('', include(router.urls)),
+urlpatterns = [
+    path('api/', include(router.urls)),
     path('tutorial', TutorialList.as_view()),
 ]
