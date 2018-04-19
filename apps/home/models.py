@@ -4,28 +4,43 @@ from django.db import models
 class Tool(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
-    urlSite = models.CharField(max_length=120, default='', null=True)
-    urlDownload = models.CharField(max_length=300, default='')
-    usageRestrictions = models.CharField(max_length=1000, default='')
-    licenseType = models.CharField(max_length=100, default='Abierta')
+    url_site = models.CharField(max_length=120, default='', null=True)
+    url_download = models.CharField(max_length=300, default='')
+    usage_restrictions = models.CharField(max_length=1000, default='')
+    license_type = models.CharField(max_length=100, default='Abierta')
     version = models.CharField(max_length=100, default='1.0')
-    keyWords = models.CharField(max_length=100, default='')
+    key_words = models.CharField(max_length=100, default='')
     state = models.CharField(max_length=100, default='')
-    integrationLms = models.CharField(max_length=100, default='', null=True)
+    integration_lms = models.CharField(max_length=100, default='', null=True)
 
-class Resource(models.Model):
-    name = models.CharField(max_length=100)
-    link = models.CharField(max_length=200)
-
-class Discipline(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000)
 
 class PedagogicStrategy(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
+
 
 class Tutorial(models.Model):
     name = models.CharField(max_length=100)
-    url = models.CharField(max_length=200)
-    commentary =  models.TextField(max_length=400)
-    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE)
+    objective = models.TextField(null=True)
+    url =  models.URLField(max_length=400)
+    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE, related_name='tutorials')
+
+
+class Discipline(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True)
+
+
+class Example(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    instructions = models.TextField()
+    state = models.CharField(max_length=100)
+    pedagogic_strategy = models.ForeignKey(PedagogicStrategy, null=False, on_delete=models.CASCADE, related_name='examples')
+    discipline = models.ForeignKey(Discipline, null=False, on_delete=models.CASCADE, related_name='examples')
+    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE, related_name='examples')
+
+
+class Resource(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.URLField()
+    example = models.ForeignKey(Example, null=False, on_delete=models.CASCADE, related_name='resources')
