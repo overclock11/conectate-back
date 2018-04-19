@@ -6,6 +6,7 @@ class TutorialSerializer(serializers.ModelSerializer):
         model = Tutorial
         fields = '__all__'
 
+
 class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discipline
@@ -17,18 +18,22 @@ class PedagogicStrategySerializer(serializers.ModelSerializer):
         model = PedagogicStrategy
         fields = '__all__'
 
+
 class ExampleSerializer(serializers.ModelSerializer):
-    discipline = DisciplineSerializer(many=False, read_only=True)
-    pedagogic_strategy = PedagogicStrategySerializer(many=False, read_only=True)
+    discipline = serializers.PrimaryKeyRelatedField(many=False, queryset=Discipline.objects.all())
+    pedagogic_strategy = serializers.PrimaryKeyRelatedField(many=False, queryset=PedagogicStrategy.objects.all())
     class Meta:
         model = Example
         fields = '__all__'
 
+    def create(self, validated_data):
+        example = Example.objects.create(**validated_data)
+        return example
+
 
 class ToolSerializer(serializers.ModelSerializer):
-    tutorials = TutorialSerializer(many=True)
-    examples = ExampleSerializer(many=True)
+    tutorials = TutorialSerializer(many=True, read_only=True)
+    examples = ExampleSerializer(many=True, read_only=True)
     class Meta:
         model = Tool
         fields = '__all__'
-

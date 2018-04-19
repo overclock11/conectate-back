@@ -15,7 +15,8 @@ class Tool(models.Model):
 
 
 class PedagogicStrategy(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
+
 
 
 class Tutorial(models.Model):
@@ -26,8 +27,9 @@ class Tutorial(models.Model):
 
 
 class Discipline(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+    name = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True)
+
 
 
 class Example(models.Model):
@@ -37,7 +39,7 @@ class Example(models.Model):
     state = models.CharField(max_length=100)
     pedagogic_strategy = models.ForeignKey(PedagogicStrategy, null=False, on_delete=models.CASCADE, related_name='examples')
     discipline = models.ForeignKey(Discipline, null=False, on_delete=models.CASCADE, related_name='examples')
-    tool = models.ForeignKey(Tool, null=False, on_delete=models.CASCADE, related_name='examples')
+    tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE, related_name='examples')
 
 
 class Resource(models.Model):
