@@ -25,7 +25,7 @@ SECRET_KEY = '@*=p0w5m@0=05!cg=$m65oa=+8_fpfji4@yp8c7c&fqii#iyj6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["conectate-sp1.herokuapp.com", "djangolpes-backend.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.home',
     'corsheaders',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
