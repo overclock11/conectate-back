@@ -25,7 +25,7 @@ SECRET_KEY = '@*=p0w5m@0=05!cg=$m65oa=+8_fpfji4@yp8c7c&fqii#iyj6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["conectate-sp1.herokuapp.com","localhost"]
+ALLOWED_HOSTS = ["conectate-sp1.herokuapp.com", "djangolpes-backend.herokuapp.com", "localhost"]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'conectate_back.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'postgres': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('Database'),
         'USER': os.environ.get('User'),
@@ -88,11 +88,10 @@ DATABASES = {
         'HOST': os.environ.get('Host'),
         'PORT': os.environ.get('Port'),
     },    
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-
 }
 
 
