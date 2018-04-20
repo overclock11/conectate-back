@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "preinstall": "rm -rf frontend/conectate-front || true",
+    "preinstall": "rm -rf frontend/conectate-front || true && rm -rf node_modules || true",
     "postinstall": "git clone -b develop https://github.com/overclock11/conectate-front.git frontend/conectate-front && cd frontend/conectate-front && npm i && ng build --output-path ../public"
   },
   "private": true,
