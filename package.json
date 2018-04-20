@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "rm -rf frontend/conectate-front || true && rm -rf node_modules || true",
+<<<<<<< HEAD
     "postinstall": "git clone -b develop https://github.com/overclock11/conectate-front.git frontend/conectate-front && cd frontend/conectate-front && npm i && ng build --output-path ../public"
+=======
+    "postinstall": "git clone -b develop https://github.com/overclock11/conectate-front.git frontend/conectate-front && cd frontend/conectate-front && npm install --dev && ng build --output-path ../public"
+>>>>>>> c21c6ecc204cc22bad90e614421372b635eee3ef
   },
   "private": true,
   "devDependencies": {
@@ -12,5 +16,8 @@
     "@angular/compiler-cli": "^5.2.9",
     "@angular/language-service": "^5.2.9",
     "typescript": "~2.5.3"
+  },
+  "engines": {
+    "node": "9.x"
   }
 }
