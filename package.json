@@ -1,0 +1,22 @@
+{
+  "name": "conectate-back",
+  "version": "1.0.0",
+  "description": "Conectate Back End Repo",
+  "main": "frontend/public/index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overclock11/conectate-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/overclock11/conectate-back/issues"
+  },
+  "homepage": "https://github.com/overclock11/conectate-back#readme"
+}
