@@ -25,4 +25,5 @@ urlpatterns = [
     RedirectView.as_view(url='/static/%(path)s', permanent=False)),
     path('admin/', admin.site.urls),
     path('',include("apps.home.urls")),
+    url(r'^(?P<path>.*)/$', serve, kwargs={'path': 'index.html'}),
 ]

@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import os
+import os, sys
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = '@*=p0w5m@0=05!cg=$m65oa=+8_fpfji4@yp8c7c&fqii#iyj6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["conectate-sp1.herokuapp.com","localhost"]
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -79,22 +80,31 @@ WSGI_APPLICATION = 'conectate_back.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'postgres': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('Database'),
-        'USER': os.environ.get('User'),
-        'PASSWORD': os.environ.get('Password'),
-        'HOST': os.environ.get('Host'),
-        'PORT': os.environ.get('Port'),
-    },    
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
 
-}
-
+if 'test' in sys.argv:
+    DATABASES = {
+        'default':  {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'TEST_CHARSET': 'UTF8', # if your normal db is utf8
+            'NAME': ':memory:', # in memory
+            'TEST_NAME': ':memory:', # in memory
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('Database'),
+            'USER': os.environ.get('User'),
+            'PASSWORD': os.environ.get('Password'),
+            'HOST': os.environ.get('Host'),
+            'PORT': os.environ.get('Port'),
+        },    
+        'sqlite': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -139,3 +149,5 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+django_heroku.settings(locals(), databases=False, test_runner=False)
