@@ -110,3 +110,4 @@ pip-selfcheck.json
 
 ambiente/
 .idea/
+node_modules/
