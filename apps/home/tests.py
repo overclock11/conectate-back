@@ -10,6 +10,7 @@ ok_status_code = 200
 class TestHomeApp(TestCase):
     client = Client()
     BASE_TOOLS_URL = '/api/tool/'
+    BASE_TUTORIALS_URL = '/api/tutorial/'
 
     def get_all_tools(self):
         response = self.client.get(self.BASE_TOOLS_URL)
@@ -48,4 +49,31 @@ class TestHomeApp(TestCase):
             "state": "New state"
         }'''
         response = self.client.put(self.BASE_TOOLS_URL + '1/', data=data, content_type='application/json')
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def testAllTutorialsRetrieval(self):
+        response = self.client.get(self.BASE_TUTORIALS_URL)
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def testTutorialCreation(self):
+        data = '''{
+            "name": "Mi tutorial",
+            "objective": "Este es un tutorial para probar la base de datos",
+            "url": "tutorialdeprueba.org/guia.pdf",
+            "tool": 1
+        }'''
+        response = self.client.post(self.BASE_TUTORIALS_URL, data=data, content_type='application/json')
+        #print("\ncontent = {}".format(response.json()))
+        self.assertEqual(response.status_code, object_created_status_code)
+
+    def testTutorialRetrievalWithID(self):
+        response = self.client.get(self.BASE_TUTORIALS_URL + '1/')
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def testTutorialUpdateWithID(self):
+        data = '''{
+            "name": "NUEVO Tutorial",
+            "objective": "¡Nueva descripción!"
+        }'''
+        response = self.client.put(self.BASE_TUTORIALS_URL+ '1/', data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
