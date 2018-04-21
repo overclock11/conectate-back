@@ -92,7 +92,7 @@ if 'test' in sys.argv:
     }
 else:
     DATABASES = {
-        'default': {
+        'postgres': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.environ.get('Database'),
             'USER': os.environ.get('User'),
@@ -100,7 +100,7 @@ else:
             'HOST': os.environ.get('Host'),
             'PORT': os.environ.get('Port'),
         },    
-        'sqlite': {
+        'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         },

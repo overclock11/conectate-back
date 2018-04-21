@@ -22,7 +22,7 @@ class PedagogicStrategy(models.Model):
 class Tutorial(models.Model):
     name = models.CharField(max_length=100)
     objective = models.TextField(null=True)
-    url =  models.URLField(max_length=400)
+    url = models.URLField(max_length=400)
     tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE, related_name='tutorials')
 
 
