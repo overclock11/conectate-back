@@ -59,7 +59,7 @@ class TestHomeApp(TestCase):
         data = '''{
             "name": "Mi tutorial",
             "objective": "Este es un tutorial para probar la base de datos",
-            "url": "tutorialdeprueba.org/guia.pdf",
+            "url": "http://www.tutorialdeprueba.org/guia.pdf",
             "tool": 1
         }'''
         response = self.client.post(self.BASE_TUTORIALS_URL, data=data, content_type='application/json')
@@ -73,7 +73,8 @@ class TestHomeApp(TestCase):
     def testTutorialUpdateWithID(self):
         data = '''{
             "name": "NUEVO Tutorial",
-            "objective": "¡Nueva descripción!"
+            "objective": "¡Nuevo objetivo!",
+            "url": "http://newurl.com"
         }'''
-        response = self.client.put(self.BASE_TUTORIALS_URL+ '1/', data=data, content_type='application/json')
+        response = self.client.put(self.BASE_TUTORIALS_URL + '1/', data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
