@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os, sys
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -91,7 +92,7 @@ if 'test' in sys.argv:
     }
 else:
     DATABASES = {
-        'default': {
+        'postgres': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.environ.get('Database'),
             'USER': os.environ.get('User'),
@@ -99,7 +100,7 @@ else:
             'HOST': os.environ.get('Host'),
             'PORT': os.environ.get('Port'),
         },    
-        'sqlite': {
+        'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         },
@@ -148,3 +149,5 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+django_heroku.settings(locals(), databases=False, test_runner=False)

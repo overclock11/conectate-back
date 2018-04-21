@@ -7,8 +7,8 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'tool', ToolList)
 router.register(r'example', ExampleList)
+router.register(r'tutorial', TutorialList)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('tutorial', TutorialList.as_view()),
 ]

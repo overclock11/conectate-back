@@ -31,19 +31,6 @@ class ExampleList(viewsets.ModelViewSet):
     serializer_class = ExampleSerializer
 
 
-class TutorialList(generics.ListCreateAPIView):
+class TutorialList(viewsets.ModelViewSet):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
-
-    def get_queryset(self):
-        st = super().get_queryset()
-        toolId = self.request.GET['toolId']
-        st = st.filter(tool_id = toolId)
-        return st
-
-    def create(self, request, *args, **kwargs):
-        data = json.loads(request.body)
-        tool = Tool.objects.get(id=data['tool'])
-        data['tool'] = tool
-        Tutorial.objects.create(**data)
-        return Response(status=status.HTTP_200_OK)

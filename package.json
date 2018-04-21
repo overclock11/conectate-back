@@ -1,0 +1,19 @@
+{
+  "name": "conectate",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "rm -rf frontend/conectate-front || true && rm -rf node_modules || true",
+    "postinstall": "git clone -b develop https://github.com/overclock11/conectate-front.git frontend/conectate-front && cd frontend/conectate-front && npm install --dev && ng build --output-path ../public"
+  },
+  "private": true,
+  "devDependencies": {
+    "@angular/cli": "~1.7.3",
+    "@angular/compiler-cli": "^5.2.9",
+    "@angular/language-service": "^5.2.9",
+    "typescript": "~2.5.3"
+  },
+  "engines": {
+    "node": "9.x"
+  }
+}
