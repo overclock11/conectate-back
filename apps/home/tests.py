@@ -16,6 +16,9 @@ class TestToolAPI(TestCase):
         response = client.get(BASE_TOOLS_URL)
         return response.json()
 
+  #  def api_url_for_tool_with_ID(self, id):
+
+
     def test_all_tool_retrieval(self):
         response = client.get(BASE_TOOLS_URL)
         print("\ncontent = {}".format(response.json()))
@@ -87,3 +90,4 @@ class TestTutorialAPI(TestCase):
         }'''
         response = client.put(self.api_url_for_tutorial_with_ID(1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
+

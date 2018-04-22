@@ -34,3 +34,7 @@ class ExampleList(viewsets.ModelViewSet):
 class TutorialList(viewsets.ModelViewSet):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
+
+class ResourceList(viewsets.ModelViewSet):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer

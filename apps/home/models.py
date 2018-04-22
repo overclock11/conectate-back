@@ -18,7 +18,6 @@ class PedagogicStrategy(models.Model):
     name = models.CharField(max_length=100, null=True)
 
 
-
 class Tutorial(models.Model):
     name = models.CharField(max_length=100)
     objective = models.TextField(null=True)
@@ -29,7 +28,6 @@ class Tutorial(models.Model):
 class Discipline(models.Model):
     name = models.CharField(max_length=100, null=True)
     description = models.TextField(null=True)
-
 
 
 class Example(models.Model):
