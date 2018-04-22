@@ -12,11 +12,11 @@ class Tool(models.Model):
     key_words = models.CharField(max_length=100, default='')
     state = models.CharField(max_length=100, default='')
     integration_lms = models.CharField(max_length=100, default='', null=True)
+    operative_systems = models.CharField(max_length=100, default='Windows', null=False)
 
 
 class PedagogicStrategy(models.Model):
     name = models.CharField(max_length=100, null=True)
-
 
 
 class Tutorial(models.Model):
@@ -29,7 +29,6 @@ class Tutorial(models.Model):
 class Discipline(models.Model):
     name = models.CharField(max_length=100, null=True)
     description = models.TextField(null=True)
-
 
 
 class Example(models.Model):

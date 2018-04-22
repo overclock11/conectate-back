@@ -8,6 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'tool', ToolList)
 router.register(r'example', ExampleList)
 router.register(r'tutorial', TutorialList)
+router.register(r'resource', ResourceList)
 
 urlpatterns = [
     path('api/', include(router.urls)),
