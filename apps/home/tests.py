@@ -194,6 +194,7 @@ class TestTutorialAPI(TestCase):
 
 
 class TestStrategyAPI(TestCase):
+    base_url = BASE_STRATEGIES_URL
     def test_get_all_strategies(self):
         response = client.get(BASE_STRATEGIES_URL)
         self.assertEqual(response.status_code, ok_status_code)
@@ -202,7 +203,12 @@ class TestStrategyAPI(TestCase):
         new_object = PedagogicStrategy()
         new_object.name = 'Test Strategy'
         data = PedagogicStrategySerializer(new_object).data
-        response = client.put(BASE_STRATEGIES_URL + '1/', data=data, content_type='application/json')
+        response = client.put(self.base_url + '1/', data=data, content_type='application/json')
         created_object = PedagogicStrategySerializer.create(response.body)
         self.assertEqual(new_object.name, created_object.name)
 
+    def test_strategy_get(self):
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
+        created_object = PedagogicStrategySerializer.create(response.body)
+        self.assertEqual(response.status_code, ok_status_code)
+        self.assertEqual(created_object.name, 'Test Strategy')
