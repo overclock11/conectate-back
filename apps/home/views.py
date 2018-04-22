@@ -3,7 +3,7 @@ from apps.home.models import *
 from apps.home.serializers import *
 from rest_framework import generics
 from rest_framework.utils import json
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import *
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
@@ -35,13 +35,23 @@ class TutorialList(viewsets.ModelViewSet):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
 
+
 class ResourceList(viewsets.ModelViewSet):
     queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
 
+    @list_route(methods=['post'])
+    def many(self, request, pk=None):
+        serialized = ResourceSerializer(data=request.data, many=True)
+        if serialized.is_valid():
+            serialized.save()
+        return Response(serialized.data)
+
+
 class PedagogicStrategyList(viewsets.ModelViewSet):
     queryset = PedagogicStrategy.objects.all()
     serializer_class = PedagogicStrategySerializer
+
 
 class DisciplineList(viewsets.ModelViewSet):
     queryset = Discipline.objects.all()

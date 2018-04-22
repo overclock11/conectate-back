@@ -179,6 +179,7 @@ class TestStrategyAPI(TestCase):
         response = client.get(api_url_for_base_with_id(self.base_url, 1))
         self.assertEqual(response.status_code, ok_status_code)
 
+
 class TestDisciplineAPI(TestCase):
     base_url = BASE_DISCIPLINES_URL
     def test_get_all_disciplines(self):
@@ -208,7 +209,6 @@ class TestDisciplineAPI(TestCase):
         self.assertEqual(response.status_code, ok_status_code)
 
 
-
 class TestUExampleAPI(TestCase):
     base_url = BASE_EXAMPLES_URL
 
@@ -217,7 +217,6 @@ class TestUExampleAPI(TestCase):
         number_of_retrieved_elements = len(response.json())
         self.assertEqual(response.status_code, ok_status_code)
         self.assertEqual(number_of_retrieved_elements, 0)
-
 
     def test_example_creation(self):
         data = '''{
