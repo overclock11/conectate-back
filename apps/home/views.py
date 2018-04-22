@@ -38,3 +38,7 @@ class TutorialList(viewsets.ModelViewSet):
 class ResourceList(viewsets.ModelViewSet):
     queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
+
+class PedagogicStrategyList(viewsets.ModelViewSet):
+    queryset = PedagogicStrategy.objects.all()
+    serializer_class = PedagogicStrategySerializer

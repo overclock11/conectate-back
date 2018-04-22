@@ -5,6 +5,8 @@ from django.test import Client
 from apps.home.views import  *
 
 from apps.home.models import *
+import json
+from rest_framework.parsers import JSONParser
 
 object_created_status_code = 201
 ok_status_code = 200
@@ -199,16 +201,20 @@ class TestStrategyAPI(TestCase):
         response = client.get(BASE_STRATEGIES_URL)
         self.assertEqual(response.status_code, ok_status_code)
 
-    def test_strategy_create(self):
+    def test_strategy_create(self):        
         new_object = PedagogicStrategy()
         new_object.name = 'Test Strategy'
-        data = PedagogicStrategySerializer(new_object).data
-        response = client.put(self.base_url + '1/', data=data, content_type='application/json')
-        created_object = PedagogicStrategySerializer.create(response.body)
-        self.assertEqual(new_object.name, created_object.name)
+        data = PedagogicStrategySerializer(new_object)
+        data.fields.pop('id')
+        data = json.dumps(data.data)
+        
+        response = client.post(self.base_url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, object_created_status_code)
+        created_object = PedagogicStrategySerializer(data = json.loads(response.content))
+        created_object.is_valid()
+        name = (created_object.validated_data.get('name'))
+        self.assertEqual(new_object.name, name)
 
     def test_strategy_get(self):
         response = client.get(api_url_for_base_with_id(self.base_url, 1))
-        created_object = PedagogicStrategySerializer.create(response.body)
         self.assertEqual(response.status_code, ok_status_code)
-        self.assertEqual(created_object.name, 'Test Strategy')
