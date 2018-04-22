@@ -38,8 +38,8 @@ class TestToolAPI(TestCase):
     base_url = BASE_TOOLS_URL
 
     def test_all_tool_retrieval(self):
+        
         response = client.get(self.base_url)
-        print("\ncontent = {}".format(response.json()))
         number_of_retrieved_elements = len(response.json())
         self.assertEqual(response.status_code, ok_status_code)
         self.assertEqual(number_of_retrieved_elements, 0)
@@ -122,6 +122,7 @@ class TestTutorialAPI(TestCase):
     base_url = BASE_TUTORIALS_URL
 
     def test_all_tutorials_retrieval(self):
+        
         response = client.get(self.base_url)
         number_of_retrieved_elements = len(response.json())
         self.assertEqual(response.status_code, ok_status_code)
@@ -156,6 +157,7 @@ class TestTutorialAPI(TestCase):
 class TestStrategyAPI(TestCase):
     base_url = BASE_STRATEGIES_URL
     def test_get_all_strategies(self):
+        
         response = client.get(BASE_STRATEGIES_URL)
         self.assertEqual(response.status_code, ok_status_code)
 
@@ -180,6 +182,7 @@ class TestStrategyAPI(TestCase):
 class TestDisciplineAPI(TestCase):
     base_url = BASE_DISCIPLINES_URL
     def test_get_all_disciplines(self):
+        
         response = client.get(self.base_url)
         self.assertEqual(response.status_code, ok_status_code)
 
@@ -206,44 +209,45 @@ class TestDisciplineAPI(TestCase):
 
 
 
-# class TestExampleAPI(TestCase):
-#     base_url = BASE_EXAMPLES_URL
+class TestUExampleAPI(TestCase):
+    base_url = BASE_EXAMPLES_URL
 
-#     def test_all_examples_retrieval(self):
-#         response = client.get(self.base_url)
-#         number_of_retrieved_elements = len(response.json())
-#         self.assertEqual(response.status_code, ok_status_code)
-#         self.assertEqual(number_of_retrieved_elements, 0)
+    def test_all_examples_retrieval(self):
+        response = client.get(self.base_url)
+        number_of_retrieved_elements = len(response.json())
+        self.assertEqual(response.status_code, ok_status_code)
+        self.assertEqual(number_of_retrieved_elements, 0)
 
 
-#     def test_example_creation(self):
-#         data = '''{
-#             "name": "test ejemplo",
-#             "description": "este ejemplo fue creado como una prueba",
-#             "instructions": "para observar este ejemplo, es necesario tener al menos un ojo parcialmente funcional y un dispositivo con capacidades de computación",
-#             "state": "Borrador",
-#             "pedagogic_strategy": 1,
-#             "discipline": 1,
-#             "tool": 1
-#         }'''
-#         response = client.post(self.base_url, data=data, content_type='application/json')
-#         numberOfStoredElements = len(get_all_elements_at_base(self.base_url))
-#         self.assertEqual(response.status_code, object_created_status_code)
-#         self.assertEqual(numberOfStoredElements, 1)
+    def test_example_creation(self):
+        data = '''{
+            "name": "test ejemplo",
+            "description": "este ejemplo fue creado como una prueba",
+            "instructions": "para observar este ejemplo, es necesario tener al menos un ojo parcialmente funcional y un dispositivo con capacidades de computación",
+            "state": "Borrador",
+            "pedagogic_strategy": 1,
+            "discipline": 1,
+            "tool": 1
+        }'''
+        response = client.post(self.base_url, data=data, content_type='application/json')
+        
+        numberOfStoredElements = len(get_all_elements_at_base(self.base_url))
+        self.assertEqual(response.status_code, object_created_status_code)
+        self.assertEqual(numberOfStoredElements, 1)
 
-#     def test_example_retrieval_with_ID(self):
-#         response = client.get(api_url_for_base_with_id(self.base_url, 1))
-#         self.assertEqual(response.status_code, ok_status_code)
+    def test_example_retrieval_with_ID(self):
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
+        self.assertEqual(response.status_code, ok_status_code)
 
-#     def test_example_update_with_ID(self):
-#         data = '''{
-#             "name": "test CHENJI",
-#             "description": "test CHANGED",
-#             "instructions": "Estas instrucciones difieren de las anteriores.",
-#             "state": "Nuevo estado",
-#             "pedagogic_strategy": 1,
-#             "discipline": 1,
-#             "tool": 1
-#         }'''
-#         response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
-#         self.assertEqual(response.status_code, ok_status_code)
+    def test_example_update_with_ID(self):
+        data = '''{
+            "name": "test CHENJI",
+            "description": "test CHANGED",
+            "instructions": "Estas instrucciones difieren de las anteriores.",
+            "state": "Nuevo estado",
+            "pedagogic_strategy": 1,
+            "discipline": 1,
+            "tool": 1
+        }'''
+        response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
+        self.assertEqual(response.status_code, ok_status_code)
