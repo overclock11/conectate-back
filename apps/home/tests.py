@@ -60,6 +60,14 @@ class TestToolAPI(TestCase):
         response = client.put(self.api_url_for_tool_with_ID(1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
 
+    def test_tool_get_associated_examples(self):
+        response = client.get(self.api_url_for_tool_with_ID(1) + 'examples/')
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def test_tool_get_associated_tutorials(self):
+        response = client.get(self.api_url_for_tool_with_ID(1) + 'tutorials/')
+        self.assertEqual(response.status_code, ok_status_code)
+
 class TestTutorialAPI(TestCase):
     def api_url_for_tutorial_with_ID(self, id):
         return BASE_TUTORIALS_URL + to_string(id) + '/'
