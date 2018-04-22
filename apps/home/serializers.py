@@ -29,6 +29,7 @@ class ExampleSerializer(serializers.ModelSerializer):
     discipline = serializers.PrimaryKeyRelatedField(many=False, queryset=Discipline.objects.all())
     pedagogic_strategy = serializers.PrimaryKeyRelatedField(many=False, queryset=PedagogicStrategy.objects.all())
     resources = ResourceSerializer(many=True, read_only=True)
+
     class Meta:
         model = Example
         fields = '__all__'
