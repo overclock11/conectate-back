@@ -11,13 +11,19 @@ client = Client()
 BASE_TOOLS_URL = '/api/tool/'
 BASE_TUTORIALS_URL = '/api/tutorial/'
 
+def to_string(id):
+    if (isinstance(id, int)):
+        return str(id)
+    else:
+        return id
+
 class TestToolAPI(TestCase):
     def get_all_tools(self):
         response = client.get(BASE_TOOLS_URL)
         return response.json()
 
-  #  def api_url_for_tool_with_ID(self, id):
-
+    def api_url_for_tool_with_ID(self, id):
+        return BASE_TOOLS_URL + to_string(id) + '/'
 
     def test_all_tool_retrieval(self):
         response = client.get(BASE_TOOLS_URL)
@@ -42,7 +48,7 @@ class TestToolAPI(TestCase):
         self.assertEqual(response.status_code, object_created_status_code)
 
     def test_tool_retrieval_with_ID(self):
-        response = client.get(BASE_TOOLS_URL + '1/')
+        response = client.get(self.api_url_for_tool_with_ID(1))
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tool_update_with_ID(self):
@@ -51,17 +57,12 @@ class TestToolAPI(TestCase):
             "description": "New description",
             "state": "New state"
         }'''
-        response = client.put(BASE_TOOLS_URL + '1/', data=data, content_type='application/json')
+        response = client.put(self.api_url_for_tool_with_ID(1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
 
 class TestTutorialAPI(TestCase):
     def api_url_for_tutorial_with_ID(self, id):
-        id_string = ''
-        if(isinstance(id, int)):
-            id_string = str(id)
-        else:
-            id_string = id
-        return BASE_TUTORIALS_URL + id_string + '/'
+        return BASE_TUTORIALS_URL + to_string(id) + '/'
 
     def test_all_tutorials_retrieval(self):
         response = client.get(BASE_TUTORIALS_URL)
