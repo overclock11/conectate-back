@@ -84,38 +84,38 @@ class TestToolAPI(TestCase):
         self.assertEqual(response.status_code, ok_status_code)
 
 
-# class TestResourceAPI(TestCase):
-#     base_url = BASE_RESOURCES_URL
-#
-#     def test_all_resources_retrieval(self):
-#         response = client.get(self.base_url)
-#         number_of_retrieved_elements = len(response.json())
-#         self.assertEqual(response.status_code, ok_status_code)
-#         self.assertEqual(number_of_retrieved_elements, 0)
-#
-#     def test_resource_creation(self):
-#         data = '''{
-#             "name": "Guía de prueba",
-#             "link": "http://link.com",
-#             "example": 1
-#         }'''
-#         response = client.post(self.base_url, data=data, content_type='application/json')
-#         numberOfStoredElements = len(get_all_elements_at_base(self.base_url))
-#         self.assertEqual(response.status_code, object_created_status_code)
-#         self.assertEqual(numberOfStoredElements, 1)
-#
-#     def test_resource_retrieval_with_ID(self):
-#         response = client.get(api_url_for_base_with_id(self.base_url, 1))
-#         self.assertEqual(response.status_code, ok_status_code)
-#
-#     def test_resource_update_with_ID(self):
-#         data = '''{
-#             "name": "Nuevo nombre de recurso",
-#             "link": "http://nuevo-link-de-recurso.com",
-#             "example": 1
-#         }'''
-#         response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
-#         self.assertEqual(response.status_code, ok_status_code)
+class TestxResourceAPI(TestCase):
+    base_url = BASE_RESOURCES_URL
+
+    def test_all_resources_retrieval(self):
+        response = client.get(self.base_url)
+        number_of_retrieved_elements = len(response.json())
+        self.assertEqual(response.status_code, ok_status_code)
+        self.assertEqual(number_of_retrieved_elements, 0)
+
+    def test_resource_creation(self):
+        data = '''{
+            "name": "Guía de prueba",
+            "link": "http://link.com",
+            "example": 1
+        }'''
+        response = client.post(self.base_url, data=data, content_type='application/json')
+        numberOfStoredElements = len(get_all_elements_at_base(self.base_url))
+        self.assertEqual(response.status_code, object_created_status_code)
+        self.assertEqual(numberOfStoredElements, 1)
+
+    def test_resource_retrieval_with_ID(self):
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def test_resource_update_with_ID(self):
+        data = '''{
+            "name": "Nuevo nombre de recurso",
+            "link": "http://nuevo-link-de-recurso.com",
+            "example": 1
+        }'''
+        response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
+        self.assertEqual(response.status_code, ok_status_code)
 
 
 class TestTutorialAPI(TestCase):
