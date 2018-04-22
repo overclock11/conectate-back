@@ -24,6 +24,7 @@ class ResourceSerializer(serializers.ModelSerializer):
         model = Resource
         fields = '__all__'
 
+
 class ExampleSerializer(serializers.ModelSerializer):
     discipline = serializers.PrimaryKeyRelatedField(many=False, queryset=Discipline.objects.all())
     pedagogic_strategy = serializers.PrimaryKeyRelatedField(many=False, queryset=PedagogicStrategy.objects.all())
@@ -31,10 +32,6 @@ class ExampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Example
         fields = '__all__'
-
-    def create(self, validated_data):
-        example = Example.objects.create(**validated_data)
-        return example
 
 
 class ToolSerializer(serializers.ModelSerializer):

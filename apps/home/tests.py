@@ -10,14 +10,28 @@ ok_status_code = 200
 client = Client()
 BASE_TOOLS_URL = '/api/tool/'
 BASE_TUTORIALS_URL = '/api/tutorial/'
+BASE_EXAMPLES_URL = '/api/example/'
+
+def to_string(id):
+    if (isinstance(id, int)):
+        return str(id)
+    else:
+        return id
+
+
+def api_url_for_base_with_id(base_url, id):
+    return base_url + to_string(id) + '/'
+
 
 class TestToolAPI(TestCase):
+    base_url = BASE_TOOLS_URL
+
     def get_all_tools(self):
-        response = client.get(BASE_TOOLS_URL)
+        response = client.get(self.base_url)
         return response.json()
 
     def test_all_tool_retrieval(self):
-        response = client.get(BASE_TOOLS_URL)
+        response = client.get(self.base_url)
         print("\ncontent = {}".format(response.json()))
         self.assertEqual(response.status_code, ok_status_code)
 
@@ -34,12 +48,12 @@ class TestToolAPI(TestCase):
             "state": "Publicada",
             "integracion_lms": "None"
         }'''
-        response = client.post(BASE_TOOLS_URL, data=data, content_type='application/json')
+        response = client.post(self.base_url, data=data, content_type='application/json')
         #print("\ncontent = {}".format(response.json()))
         self.assertEqual(response.status_code, object_created_status_code)
 
     def test_tool_retrieval_with_ID(self):
-        response = client.get(BASE_TOOLS_URL + '1/')
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tool_update_with_ID(self):
@@ -48,20 +62,23 @@ class TestToolAPI(TestCase):
             "description": "New description",
             "state": "New state"
         }'''
-        response = client.put(BASE_TOOLS_URL + '1/', data=data, content_type='application/json')
+        response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
 
+    def test_tool_get_associated_examples(self):
+        response = client.get(api_url_for_base_with_id(self.base_url, 1) + 'examples/')
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def test_tool_get_associated_tutorials(self):
+        response = client.get(api_url_for_base_with_id(self.base_url, 1) + 'tutorials/')
+        self.assertEqual(response.status_code, ok_status_code)
+
+
 class TestTutorialAPI(TestCase):
-    def api_url_for_tutorial_with_ID(self, id):
-        id_string = ''
-        if(isinstance(id, int)):
-            id_string = str(id)
-        else:
-            id_string = id
-        return BASE_TUTORIALS_URL + id_string + '/'
+    base_url = BASE_TUTORIALS_URL
 
     def test_all_tutorials_retrieval(self):
-        response = client.get(BASE_TUTORIALS_URL)
+        response = client.get(self.base_url)
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tutorial_creation(self):
@@ -71,12 +88,12 @@ class TestTutorialAPI(TestCase):
             "url": "http://www.tutorialdeprueba.org/guia.pdf",
             "tool": 1
         }'''
-        response = client.post(BASE_TUTORIALS_URL, data=data, content_type='application/json')
+        response = client.post(self.base_url, data=data, content_type='application/json')
         #print("\ncontent = {}".format(response.json()))
         self.assertEqual(response.status_code, object_created_status_code)
 
     def test_tutorial_retrieval_with_ID(self):
-        response = client.get(self.api_url_for_tutorial_with_ID(1))
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tutorial_update_with_ID(self):
@@ -85,5 +102,44 @@ class TestTutorialAPI(TestCase):
             "objective": "¡Nuevo objetivo!",
             "url": "http://newurl.com"
         }'''
-        response = client.put(self.api_url_for_tutorial_with_ID(1), data=data, content_type='application/json')
+        response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
+
+
+# class TestExampleAPI(TestCase):
+#     base_url = BASE_EXAMPLES_URL
+#
+#     def test_all_examples_retrieval(self):
+#         response = client.get(self.base_url)
+#         self.assertEqual(response.status_code, ok_status_code)
+#
+#     def test_example_creation(self):
+#         data = '''{
+#             "name": "test ejemplo",
+#             "description": "este ejemplo fue creado como una prueba",
+#             "instructions": "para observar este ejemplo, es necesario tener al menos un ojo parcialmente funcional y un dispositivo con capacidades de computación",
+#             "state": "Borrador",
+#             "pedagogic_strategy": 1,
+#             "discipline": 1,
+#             "tool": 1
+#         }'''
+#         response = client.post(self.base_url, data=data, content_type='application/json')
+#         print("\ncontent = {}".format(response.json()))
+#         self.assertEqual(response.status_code, object_created_status_code)
+#
+#     def test_example_retrieval_with_ID(self):
+#         response = client.get(api_url_for_base_with_id(self.base_url, 1))
+#         self.assertEqual(response.status_code, ok_status_code)
+#
+#     def test_example_update_with_ID(self):
+#         data = '''{
+#             "name": "test CHENJI",
+#             "description": "test CHANGED",
+#             "instructions": "Estas instrucciones difieren de las anteriores.",
+#             "state": "Nuevo estado",
+#             "pedagogic_strategy": 1,
+#             "discipline": 1,
+#             "tool": 1
+#         }'''
+#         response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
+#         self.assertEqual(response.status_code, ok_status_code)
