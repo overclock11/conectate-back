@@ -4,11 +4,16 @@ from rest_framework.test import APIRequestFactory
 from django.test import Client
 from apps.home.views import  *
 
+from apps.home.models import *
+import json
+from rest_framework.parsers import JSONParser
+
 object_created_status_code = 201
 ok_status_code = 200
 
 client = Client()
 BASE_TOOLS_URL = '/api/tool/'
+BASE_STRATEGIES_URL = '/api/pedagogic_strategy/'
 BASE_TUTORIALS_URL = '/api/tutorial/'
 BASE_EXAMPLES_URL = '/api/example/'
 BASE_RESOURCES_URL = '/api/resource/'
@@ -187,4 +192,29 @@ class TestTutorialAPI(TestCase):
             "url": "http://newurl.com"
         }'''
         response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
+        self.assertEqual(response.status_code, ok_status_code)
+
+
+class TestStrategyAPI(TestCase):
+    base_url = BASE_STRATEGIES_URL
+    def test_get_all_strategies(self):
+        response = client.get(BASE_STRATEGIES_URL)
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def test_strategy_create(self):        
+        new_object = PedagogicStrategy()
+        new_object.name = 'Test Strategy'
+        data = PedagogicStrategySerializer(new_object)
+        data.fields.pop('id')
+        data = json.dumps(data.data)
+        
+        response = client.post(self.base_url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, object_created_status_code)
+        created_object = PedagogicStrategySerializer(data = json.loads(response.content))
+        created_object.is_valid()
+        name = (created_object.validated_data.get('name'))
+        self.assertEqual(new_object.name, name)
+
+    def test_strategy_get(self):
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
         self.assertEqual(response.status_code, ok_status_code)
