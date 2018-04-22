@@ -10,6 +10,7 @@ ok_status_code = 200
 client = Client()
 BASE_TOOLS_URL = '/api/tool/'
 BASE_TUTORIALS_URL = '/api/tutorial/'
+BASE_EXAMPLES_URL = '/api/example/'
 
 def to_string(id):
     if (isinstance(id, int)):
@@ -17,16 +18,20 @@ def to_string(id):
     else:
         return id
 
+
+def api_url_for_base_with_id(base_url, id):
+    return base_url + to_string(id) + '/'
+
+
 class TestToolAPI(TestCase):
+    base_url = BASE_TOOLS_URL
+
     def get_all_tools(self):
-        response = client.get(BASE_TOOLS_URL)
+        response = client.get(self.base_url)
         return response.json()
 
-    def api_url_for_tool_with_ID(self, id):
-        return BASE_TOOLS_URL + to_string(id) + '/'
-
     def test_all_tool_retrieval(self):
-        response = client.get(BASE_TOOLS_URL)
+        response = client.get(self.base_url)
         print("\ncontent = {}".format(response.json()))
         self.assertEqual(response.status_code, ok_status_code)
 
@@ -43,12 +48,12 @@ class TestToolAPI(TestCase):
             "state": "Publicada",
             "integracion_lms": "None"
         }'''
-        response = client.post(BASE_TOOLS_URL, data=data, content_type='application/json')
+        response = client.post(self.base_url, data=data, content_type='application/json')
         #print("\ncontent = {}".format(response.json()))
         self.assertEqual(response.status_code, object_created_status_code)
 
     def test_tool_retrieval_with_ID(self):
-        response = client.get(self.api_url_for_tool_with_ID(1))
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tool_update_with_ID(self):
@@ -57,23 +62,22 @@ class TestToolAPI(TestCase):
             "description": "New description",
             "state": "New state"
         }'''
-        response = client.put(self.api_url_for_tool_with_ID(1), data=data, content_type='application/json')
+        response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tool_get_associated_examples(self):
-        response = client.get(self.api_url_for_tool_with_ID(1) + 'examples/')
+        response = client.get(api_url_for_base_with_id(self.base_url, 1) + 'examples/')
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tool_get_associated_tutorials(self):
-        response = client.get(self.api_url_for_tool_with_ID(1) + 'tutorials/')
+        response = client.get(api_url_for_base_with_id(self.base_url, 1) + 'tutorials/')
         self.assertEqual(response.status_code, ok_status_code)
 
 class TestTutorialAPI(TestCase):
-    def api_url_for_tutorial_with_ID(self, id):
-        return BASE_TUTORIALS_URL + to_string(id) + '/'
+    base_url = BASE_TUTORIALS_URL
 
     def test_all_tutorials_retrieval(self):
-        response = client.get(BASE_TUTORIALS_URL)
+        response = client.get(self.base_url)
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tutorial_creation(self):
@@ -83,12 +87,12 @@ class TestTutorialAPI(TestCase):
             "url": "http://www.tutorialdeprueba.org/guia.pdf",
             "tool": 1
         }'''
-        response = client.post(BASE_TUTORIALS_URL, data=data, content_type='application/json')
+        response = client.post(self.base_url, data=data, content_type='application/json')
         #print("\ncontent = {}".format(response.json()))
         self.assertEqual(response.status_code, object_created_status_code)
 
     def test_tutorial_retrieval_with_ID(self):
-        response = client.get(self.api_url_for_tutorial_with_ID(1))
+        response = client.get(api_url_for_base_with_id(self.base_url, 1))
         self.assertEqual(response.status_code, ok_status_code)
 
     def test_tutorial_update_with_ID(self):
@@ -97,6 +101,5 @@ class TestTutorialAPI(TestCase):
             "objective": "¡Nuevo objetivo!",
             "url": "http://newurl.com"
         }'''
-        response = client.put(self.api_url_for_tutorial_with_ID(1), data=data, content_type='application/json')
+        response = client.put(api_url_for_base_with_id(self.base_url, 1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
-
