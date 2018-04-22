@@ -4,11 +4,14 @@ from rest_framework.test import APIRequestFactory
 from django.test import Client
 from apps.home.views import  *
 
+from apps.home.models import *
+
 object_created_status_code = 201
 ok_status_code = 200
 
 client = Client()
 BASE_TOOLS_URL = '/api/tool/'
+BASE_STRATEGIES_URL = '/api/pedagogic_strategy/'
 BASE_TUTORIALS_URL = '/api/tutorial/'
 
 class TestToolAPI(TestCase):
@@ -87,3 +90,18 @@ class TestTutorialAPI(TestCase):
         }'''
         response = client.put(self.api_url_for_tutorial_with_ID(1), data=data, content_type='application/json')
         self.assertEqual(response.status_code, ok_status_code)
+
+
+class TestStrategyAPI(TestCase):
+    def test_get_all_strategies(self):
+        response = client.get(BASE_STRATEGIES_URL)
+        self.assertEqual(response.status_code, ok_status_code)
+
+    def test_strategy_create(self):
+        new_object = PedagogicStrategy()
+        new_object.name = 'Test Strategy'
+        data = PedagogicStrategySerializer(new_object).data
+        response = client.put(BASE_STRATEGIES_URL + '1/', data=data, content_type='application/json')
+        created_object = PedagogicStrategySerializer.create(response.body)
+        self.assertEqual(new_object.name, created_object.name)
+
