@@ -10,6 +10,7 @@ router.register(r'example', ExampleList)
 router.register(r'tutorial', TutorialList)
 router.register(r'resource', ResourceList)
 router.register(r'pedagogic_strategy', PedagogicStrategyList)
+router.register(r'discipline', DisciplineList)
 
 urlpatterns = [
     path('api/', include(router.urls)),
