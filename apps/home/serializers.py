@@ -19,16 +19,20 @@ class PedagogicStrategySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ResourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resource
+        fields = '__all__'
+
+
 class ExampleSerializer(serializers.ModelSerializer):
     discipline = serializers.PrimaryKeyRelatedField(many=False, queryset=Discipline.objects.all())
     pedagogic_strategy = serializers.PrimaryKeyRelatedField(many=False, queryset=PedagogicStrategy.objects.all())
+    resources = ResourceSerializer(many=True, read_only=True)
+
     class Meta:
         model = Example
         fields = '__all__'
-
-    def create(self, validated_data):
-        example = Example.objects.create(**validated_data)
-        return example
 
 
 class ToolSerializer(serializers.ModelSerializer):

@@ -12,24 +12,23 @@ class Tool(models.Model):
     key_words = models.CharField(max_length=100, default='')
     state = models.CharField(max_length=100, default='')
     integration_lms = models.CharField(max_length=100, default='', null=True)
+    operative_systems = models.CharField(max_length=100, default='Windows', null=False)
 
 
 class PedagogicStrategy(models.Model):
     name = models.CharField(max_length=100, null=True)
 
 
-
 class Tutorial(models.Model):
     name = models.CharField(max_length=100)
     objective = models.TextField(null=True)
-    url =  models.URLField(max_length=400)
+    url = models.URLField(max_length=400)
     tool = models.ForeignKey(Tool, null=True, on_delete=models.CASCADE, related_name='tutorials')
 
 
 class Discipline(models.Model):
     name = models.CharField(max_length=100, null=True)
     description = models.TextField(null=True)
-
 
 
 class Example(models.Model):
