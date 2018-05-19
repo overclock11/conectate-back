@@ -38,3 +38,13 @@ Ahora, estamos listos para correr el proyecto localmente.
 Primero, tenemos que crear una base de datos de acuerdo con lo especificado en `conectate_back/settings.py`. Estos parámetros se pueden modificar por medio de variables de entorno.
 
 Depués, corremor `python manage.py migrate`, y finalmente, `python manage.py runserver`. Ahora tendremos el servidor de desarrollo funcionando.
+
+## Desarrollo del front end
+
+Para empezar a desarrollar en el front-end, correr el siguiente comando desde el repositorio de back-end:
+
+```
+npm run fe-dev
+```
+
+Esto iniciará el proceso que escucha archivos modificados de Angular, y compila el fuente de front end al directorio correcto automáticamente.
